@@ -64,7 +64,10 @@ app.post("/generate-pdf", async (req, res) => {
       </body>
       </html>`;
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      headless: "new",
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });
 
